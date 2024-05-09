@@ -2,6 +2,7 @@ package com.dfcorp;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 
@@ -27,8 +28,9 @@ public class DiaryTest {
         @DisplayName("Should add diary entry")
         public void diaryAddEntry() {
             // Arrange
+            Entry testEntry = mock(Entry.class);
             // Act
-            testDiary.addEntry(new Entry());
+            testDiary.addEntry(testEntry);
             // Assert
             assertEquals(testDiary.getEntries().size(), 1);
         }
@@ -38,11 +40,12 @@ public class DiaryTest {
         @DisplayName("Should not add diary entry when it's locked")
         public void diaryNotToAddEntryIfLocked() {
             // Arrange
+            Entry testEntry = mock(Entry.class);
             // Act
             testDiary.isLocked(true);
-            testDiary.addEntry(new Entry());
+            testDiary.addEntry(testEntry);
             // Assert
-            assertEquals(testDiary.getEntries(), null);
+            assertNull(testDiary.getEntries());
         }
 
         // User story 3
@@ -50,7 +53,7 @@ public class DiaryTest {
         @DisplayName("Should display diary entries if unlocked")
         public void getEntriesShouldReturnListOfEntriesIfDiaryUnlocked() {
             // Arrange
-            Entry testEntry = new Entry();
+            Entry testEntry = mock(Entry.class);
             testDiary.addEntry(testEntry);
 
             // Act
@@ -65,7 +68,7 @@ public class DiaryTest {
         @DisplayName("Should not display diary entries if locked")
         public void getEntriesShouldNotReturnListOfEntriesIfDiaryLocked() {
             // Arrange
-            Entry testEntry = new Entry();
+            Entry testEntry = mock(Entry.class);
             testDiary.addEntry(testEntry);
 
             // Act
@@ -97,13 +100,13 @@ public class DiaryTest {
         @DisplayName("Should not unlock diary if pin is incorrect")
         public void diaryStayLockedWithIncorrectPin() {
             // Arrange
-            Entry testEntry = new Entry();
+            Entry testEntry = mock(Entry.class);
             testDiary.addEntry(testEntry);
             testDiary.isLocked(true);
             // Act
             testDiary.unlock(2345);
             // Assert
-            assertEquals(testDiary.getEntries(), null);
+            assertNull(testDiary.getEntries());
         }
 
         // User story 7
